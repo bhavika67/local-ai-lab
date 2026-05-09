@@ -8,7 +8,6 @@ from typing import Literal
 app = FastAPI()
 
 
-# ---- Schemas ----
 class PromptRequest(BaseModel):
     model: str
     prompt: str
@@ -24,7 +23,7 @@ class BenchmarkResponse(BaseModel):
 
 
 class SentimentRequest(BaseModel):
-    text: str
+    text: str = Field(min_length=1)
 
 
 class SentimentResponse(BaseModel):
@@ -32,7 +31,6 @@ class SentimentResponse(BaseModel):
     confidence: float = Field(ge=0.0, le=1.0)
 
 
-# ---- Helpers ----
 def extract_and_validate(raw_response: str) -> SentimentResponse:
     match = re.search(r"\{.*\}", raw_response, re.DOTALL)
     if not match:
@@ -41,7 +39,6 @@ def extract_and_validate(raw_response: str) -> SentimentResponse:
     return SentimentResponse(**data)
 
 
-# ---- Routes ----
 @app.post("/generate", response_model=BenchmarkResponse)
 def generate(request: PromptRequest):
     result = benchmark_model(request.model, request.prompt)
@@ -67,11 +64,11 @@ def analyze(request: SentimentRequest):
         return extract_and_validate(raw_response)
 
     except (json.JSONDecodeError, ValidationError, ValueError):
+        truncated = raw_response[:200]
         retry_prompt = f"""
         Your previous response was invalid.
         Text: "{request.text}"
-        Previous response:
-        {raw_response}
+        Previous response: {truncated}
         Fix the errors:
         - Must be valid JSON
         - "sentiment" must be "positive", "negative", or "neutral"

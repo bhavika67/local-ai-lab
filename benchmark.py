@@ -3,13 +3,14 @@ import requests
 import json
 
 
-def benchmark_model(model_name, prompt):
+def benchmark_model(model_name, prompt, temperature=0.8):
     url = "http://localhost:11434/api/generate"
     payload = {
-        "model": model_name,
-        "prompt": prompt,
-        "stream": True
-    }
+    "model": model_name,
+    "prompt": prompt,
+    "stream": True,
+    "options": {"temperature": temperature}
+}
 
     time_request_sent = time.time()
     time_first_token = None

@@ -156,3 +156,215 @@ structured output and JSON validation.
 Open question to answer at start of next session:
 If gemma2:2b is asked to return JSON, what are
 the three ways it can fail?
+
+## setion2
+## Decision 3 — Structured Output Preprocessing Strategy
+
+Date: 2026-04-XX
+Phase: 2 — Structured Output
+
+### Decision
+
+Implement a hybrid preprocessing strategy:
+
+* detect and log markdown fence wrapping as an instruction-compliance failure
+* preserve the original raw output unchanged
+* strip fences only in a secondary preprocessing step before JSON parsing
+* continue structural validation on the cleaned output
+
+Fence wrapping will therefore be treated as:
+
+* a measurable instruction violation
+* but not an unrecoverable structural failure
+
+The validator will separately track:
+
+* raw instruction compliance
+* recoverable structural validity
+
+---
+
+### Evidence
+
+During Phase 2 testing, markdown fence wrapping occurred in nearly all runs despite explicit prompt instructions:
+
+* “Return ONLY valid JSON”
+* “No markdown”
+* “Do not include ```json fences”
+
+At the same time:
+
+* the underlying JSON content was structurally valid after cleanup
+* no meaningful syntax or schema failures were observed
+
+This revealed that:
+
+* the model could follow structural requirements
+* while simultaneously ignoring formatting instructions
+
+The experiment therefore exposed two distinct behaviors:
+
+1. instruction noncompliance
+2. structural corruption
+
+These behaviors should not be collapsed into the same failure category.
+
+---
+
+### Reasoning
+
+Treating fence wrapping as a fatal syntax failure would artificially reduce measured structural reliability because the underlying JSON remained recoverable.
+
+However, silently stripping fences without logging them would hide an important model behavior:
+
+* persistent instruction noncompliance
+
+The chosen strategy preserves both signals:
+
+* operational usability
+* experimental observability
+
+This allows the system to answer questions such as:
+
+* “Can the output be recovered safely?”
+* “Did the model actually follow formatting instructions?”
+
+This separation is important because:
+
+* downstream systems may tolerate recoverable formatting noise
+* but benchmark evaluation still needs visibility into compliance failures
+
+The decision also keeps the experiment aligned with its stated Phase 2 goal:
+
+> measuring structural reliability separately from semantic quality and instruction adherence.
+
+---
+
+### What This Decision Does NOT Answer
+
+This decision does not determine:
+
+* whether fence wrapping should count as a production failure
+* whether recoverable preprocessing hides deeper instruction-following weaknesses
+* how often fence wrapping occurs under different models or prompts
+* whether preprocessing should extend to other recoverable artifacts
+  (extra prose, trailing commas, malformed escaping, partial JSON, etc.)
+
+It also does not answer:
+
+* whether recoverable outputs should be included in headline “valid JSON” metrics
+
+That remains an unresolved evaluation-policy question.
+
+---
+
+### When To Revisit
+
+This decision should be revisited if:
+
+* fence wrapping frequency changes significantly under different models
+* preprocessing begins masking more serious structural failures
+* retry behavior becomes sensitive to preprocessing logic
+* downstream systems require strict raw-output compliance
+* schema complexity increases and cleanup becomes ambiguous or unsafe
+* Phase 3 introduces semantic correctness evaluation or production execution pipelines
+
+The strategy should also be reconsidered if:
+
+* recoverable preprocessing starts inflating benchmark metrics in misleading ways
+* or if instruction compliance becomes a primary research objective rather than a secondary observation.
+
+Decision 4 — Phase 2 Scope Limitation
+Date: 2026-04-XX Phase: 2 — Structured Output
+Decision
+Phase 2 will be interpreted as a baseline structured generation reliability study under low-complexity conditions, not as a comprehensive robustness evaluation.
+The experiment demonstrated that:
+
+* gemma2:2b can reliably generate short structured JSON outputs for simple extraction tasks under strongly constrained prompting
+The experiment did NOT demonstrate:
+
+* robustness under complex schemas
+* realistic failure distributions
+* retry recovery effectiveness
+* temperature-induced degradation boundaries
+* semantic correctness reliability
+Therefore, conclusions from Phase 2 will be limited strictly to:
+baseline structural competence under controlled conditions.
+Evidence
+Observed results:
+
+* 100% structurally valid outputs across all temperatures
+* 0% recovery rate because retries were never triggered
+* empty failure mode distribution
+* no measurable syntax, missing-field, or wrong-type failures
+At the same time:
+
+* markdown fence wrapping occurred consistently
+* indicating instruction noncompliance without structural corruption
+The lack of observable failures prevented meaningful evaluation of:
+
+* failure distributions
+* retry behavior
+* degradation patterns
+* temperature sensitivity
+Reasoning
+The experiment encountered a ceiling effect.
+A ceiling effect occurs when:
+
+* task difficulty is too low relative to model capability
+* causing performance metrics to saturate near 100%
+When this happens:
+
+* meaningful variance disappears
+* failure mechanisms cannot be observed
+* hypotheses about degradation become untestable
+In this case:
+
+* the schema was small
+* outputs were short
+* prompts were highly constrained
+* task ambiguity remained limited
+As a result, the benchmark primarily measured:
+whether the model could succeed under favorable conditions
+rather than:
+how the system behaves under stress or instability.
+This limits the strength of the conclusions because:
+
+* absence of failures is not evidence that failures are impossible
+* it only shows they did not emerge under current experimental pressure
+A structurally easy benchmark can therefore produce:
+
+* operational confidence while still failing to reveal:
+* robustness boundaries
+* hidden instability
+* failure recovery behavior
+What This Decision Does NOT Answer
+This decision does not determine:
+
+* at what schema complexity failures begin to emerge
+* whether higher temperatures destabilize larger outputs
+* whether retries are effective under realistic failure conditions
+* whether semantic correctness degrades before structural validity
+* how smaller or weaker models would behave under the same benchmark
+* whether nested schemas would expose instability
+* whether longer outputs increase schema drift probability
+It also does not answer:
+
+* whether the system is production-ready
+* whether structural validity correlates with downstream correctness
+When To Revisit
+This decision should be revisited when:
+
+* schema complexity increases
+* nested objects or arrays are introduced
+* prompt constraints are weakened
+* semantic validation is added
+* adversarial or ambiguous tasks are tested
+* retries begin occurring naturally
+* measurable failure distributions emerge
+* larger output lengths are evaluated
+* additional models are benchmarked comparatively
+The scope limitation should also be reconsidered if:
+
+* future experiments continue producing ceiling effects
+* because that may indicate the benchmark design itself is insufficiently challenging rather than the model being universally robust.
