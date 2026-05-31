@@ -1,0 +1,366 @@
+[
+  {
+    "id": 1,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "positive",
+      "is_toxic": false,
+      "confidence_range": [0.85, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+    "id": 2,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "positive",
+      "is_toxic": false,
+      "confidence_range": [0.85, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+    "id": 3,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "positive",
+      "is_toxic": false,
+      "confidence_range": [0.90, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+    "id": 4,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "positive",
+      "is_toxic": false,
+      "confidence_range": [0.85, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+    "id": 5,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "positive",
+      "is_toxic": false,
+      "confidence_range": [0.85, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+    "id": 6,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "positive",
+      "is_toxic": false,
+      "confidence_range": [0.85, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+
+  {
+    "id": 7,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "negative",
+      "is_toxic": false,
+      "confidence_range": [0.85, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+    "id": 8,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "negative",
+      "is_toxic": false,
+      "confidence_range": [0.90, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+    "id": 9,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "negative",
+      "is_toxic": false,
+      "confidence_range": [0.90, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+    "id": 10,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "negative",
+      "is_toxic": false,
+      "confidence_range": [0.85, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+    "id": 11,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "negative",
+      "is_toxic": false,
+      "confidence_range": [0.90, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+    "id": 12,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "negative",
+      "is_toxic": false,
+      "confidence_range": [0.85, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+
+  {
+    "id": 13,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "neutral",
+      "is_toxic": false,
+      "confidence_range": [0.85, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+    "id": 14,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "neutral",
+      "is_toxic": false,
+      "confidence_range": [0.85, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+    "id": 15,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "neutral",
+      "is_toxic": false,
+      "confidence_range": [0.90, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+    "id": 16,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "neutral",
+      "is_toxic": false,
+      "confidence_range": [0.85, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+    "id": 17,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "neutral",
+      "is_toxic": false,
+      "confidence_range": [0.85, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+    "id": 18,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "neutral",
+      "is_toxic": false,
+      "confidence_range": [0.85, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+
+  {
+    "id": 19,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "negative",
+      "is_toxic": true,
+      "confidence_range": [0.85, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+
+  {
+    "id": 20,
+    "scoreable": false,
+    "expected": {
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+
+  {
+    "id": 21,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "negative",
+      "is_toxic": true,
+      "confidence_range": [0.90, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+
+  {
+    "id": 22,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "negative",
+      "is_toxic": true,
+      "confidence_range": [0.85, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+
+  {
+    "id": 23,
+    "scoreable": true,
+    "expected": {
+      "sentiment": "negative",
+      "is_toxic": true,
+      "confidence_range": [0.85, 1.00],
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+
+  {
+    "id": 24,
+    "scoreable": false,
+    "expected": {
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+
+  {
+    "id": 25,
+    "scoreable": false,
+    "expected": {
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+    "id": 26,
+    "scoreable": false,
+    "expected": {
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+  "id": 27,
+  "scoreable": false,
+  "expected": {
+    "contains_sarcasm": false,
+    "language": "english"
+  }
+},
+  {
+    "id": 28,
+    "scoreable": false,
+    "expected": {
+      "contains_sarcasm": false,
+      "language": "english"
+    }
+  },
+  {
+  "id": 29,
+  "scoreable": false,
+  "expected": {
+    "contains_sarcasm": false,
+    "language": "english"
+  }
+},
+  {
+    "id": 30,
+    "scoreable": false,
+    "expected": {
+      "contains_sarcasm": true,
+      "language": "english"
+    }
+  },
+
+  {
+    "id": 31,
+    "scoreable": false,
+    "expected": {
+      "contains_sarcasm": true,
+      "language": "english"
+    }
+  },
+  {
+    "id": 32,
+    "scoreable": false,
+    "expected": {
+      "contains_sarcasm": true,
+      "language": "english"
+    }
+  },
+  {
+    "id": 33,
+    "scoreable": false,
+    "expected": {
+      "contains_sarcasm": true,
+      "language": "english"
+    }
+  },
+  {
+    "id": 34,
+    "scoreable": false,
+    "expected": {
+      "contains_sarcasm": true,
+      "language": "english"
+    }
+  },
+  {
+    "id": 35,
+    "scoreable": false,
+    "expected": {
+      "contains_sarcasm": true,
+      "language": "english"
+    }
+  },
+  {
+    "id": 36,
+    "scoreable": false,
+    "expected": {
+      "contains_sarcasm": true,
+      "language": "english"
+    }
+  }
+]
