@@ -393,3 +393,109 @@ Additional findings:
 * If future benchmarks prioritize reasoning, coding, or long-context tasks
 
 ---
+## Decision 6 — Secondary Model Identified
+Phase: 3 — Comparative Model Benchmarking
+
+### Decision
+qwen2.5:3b is designated as the preferred alternative
+deployment model for scenarios where semantic quality,
+classification accuracy, and temperature robustness
+take priority over resource efficiency.
+
+### Evidence
+
+qwen2.5:3b achieved the strongest overall robustness
+across all three temperatures:
+
+| Temp | qwen2.5:3b Pass Rate | gemma2:2b Pass Rate |
+|------|---------------------|---------------------|
+| 0.1  | 90.91%              | 90.91%              |
+| 0.7  | 81.82%              | 68.18%              |
+| 1.0  | 72.73%              | 59.09%              |
+
+Additional findings:
+- 100% structural validity at every temperature
+- 100% toxicity accuracy at every temperature
+- Most graceful quality degradation as temperature increased
+- No fence wrapping behavior — strict instruction compliance
+
+### Reasoning
+qwen2.5:3b did not win on every metric. gemma2:2b achieved
+a higher average quality score at temperature 0.1. But
+qwen2.5:3b demonstrated a consistent advantage that matters
+in production: it degrades more slowly under increased
+randomness and maintains higher reliability across a wider
+operating range.
+
+For systems where temperature cannot be tightly controlled,
+or where classification accuracy must remain stable across
+varying conditions, qwen2.5:3b is the stronger choice.
+
+### What This Decision Does NOT Answer
+- Whether qwen2.5:3b maintains its advantage on tasks
+  beyond semantic classification
+- Whether qwen2.5:3b's latency is acceptable for
+  real-time edge deployment on this hardware
+- Whether the quality gap justifies the larger
+  deployment footprint in resource-constrained environments
+- Whether qwen2.5:3b's toxicity advantage is genuine
+  capability or a dataset artifact
+
+### When To Revisit
+- If gemma2:2b closes the quality gap in future benchmarks
+- If qwen2.5:3b is tested on reasoning or coding tasks
+  and underperforms
+- If deployment constraints change and resource efficiency
+  becomes the dominant requirement
+
+---
+
+## Decision 7 — llama3.2:3b Not Recommended
+Phase: 3 — Comparative Model Benchmarking
+
+### Decision
+llama3.2:3b is not recommended for deployment in this
+project based on current benchmark evidence.
+
+### Evidence
+
+| Temp | Pass Rate |
+|------|-----------|
+| 0.1  | 31.82%    |
+| 0.7  | 22.73%    |
+| 1.0  | 18.18%    |
+
+Dominant failure modes:
+- invalid_sentiment
+- confidence_out_of_range
+- sarcasm_mismatch
+
+The model never led in any measured category.
+
+### What This Decision Does NOT Answer
+- Whether llama3.2:3b performs better on reasoning tasks
+- Whether a different prompt strategy would close the gap
+- Whether llama3.2:3b's nuanced label choices indicate
+  genuine capability that the benchmark punished unfairly
+
+### When To Revisit
+- If a future benchmark is designed specifically to
+  reward nuanced or multi-class classification
+- If prompt engineering substantially improves its
+  structured output compliance
+
+---
+
+## Session 3 End — 2026-05-31
+Completed Phase 3 in full.
+All three project phases complete.
+
+Final deployment recommendations:
+- gemma2:2b: primary model, efficiency-constrained deployment
+- qwen2.5:3b: secondary model, quality-constrained deployment
+- llama3.2:3b: not recommended based on current evidence
+
+Remaining work:
+1. Update README.md with project summary
+2. Fix language scoring in run_phase3_experiment.py
+3. Build UI to display benchmark results
